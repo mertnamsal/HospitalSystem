@@ -1,0 +1,8 @@
+rootProject.name = 'HospitalSystem'
+include 'auth-micro-service'
+include 'user-micro-service'
+include 'appointment-micro-service'
+include 'api-gateway-service'
+include 'config-server'
+include 'doctor-micro-service'
+

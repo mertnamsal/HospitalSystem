@@ -1,0 +1,41 @@
+server:
+  port: 80
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      default-filters:
+        - RewritePath= /(?<segment>.*), /api/v1/$\{segment}
+      routes:
+        - id: auth-micro-service
+          predicates:
+            - Path=/auth/**
+          uri: http://localhost:9090
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackUri: forward:/fallbackauth
+        - id: user-micro-service
+          predicates:
+            - Path=/user/**
+          uri: http://localhost:9091
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: user
+                fallbackUri: forward:/fallbackuser
+#        - id: appointment-micro-service
+#          predicates:
+#            - Path = /appointment/**
+#          uri: http://localhost:9092
+#          filters:
+#            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+#            - name: CircuitBreaker
+#              args:
+#                name: user
+#                fallbackUri: forward:/fallbackappointment

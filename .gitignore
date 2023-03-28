@@ -1,0 +1,12 @@
+# Project exclude paths
+/.gradle/
+/api-gateway-service/build/
+/api-gateway-service/build/classes/java/main/
+/appointment-micro-service/build/
+/appointment-micro-service/build/classes/java/main/
+/auth-micro-service/build/
+/auth-micro-service/build/classes/java/main/
+/config-server/build/
+/config-server/build/classes/java/main/
+/user-micro-service/build/
+/user-micro-service/build/classes/java/main/
